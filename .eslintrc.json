@@ -9,7 +9,7 @@
             "SwitchCase": 1,
             "ArrayExpression": "first",
             "CallExpression": {"arguments": "first"},
-            "flatTernaryExpressions": true
+            // "flatTernaryExpressions": true
         }],
         "curly": ["error", "all"],
         "semi": ["error", "always"],
