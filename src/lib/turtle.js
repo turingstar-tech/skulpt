@@ -406,9 +406,13 @@ var $builtinmodule = function (name) {
 						return;
 					}
 					var world = getScreen();
+					const turtleCanvas = document.getElementById("TURTLE_CANVAS");
+					const turtleScale = Number(
+						turtleCanvas.style.transform.replace("scale(", "").replace(")", "")
+					);
 					var rect = world.spriteLayer().canvas.getBoundingClientRect();
-					x = (e.clientX - rect.left) | 0;
-					y = (e.clientY - rect.top) | 0;
+					x = ((e.clientX - rect.left) | 0) / turtleScale;
+					y = ((e.clientY - rect.top) | 0) / turtleScale;
 					localX = x * world.xScale + world.llx;
 					localY = y * world.yScale + world.ury;
 					computed = true;
