@@ -670,7 +670,6 @@ var $builtinmodule = function (name) {
 					sprites = getScreen().spriteLayer(),
 					turtle,
 					i;
-
 				this._frames = [];
 				this._frameCount = 0;
 
@@ -831,6 +830,7 @@ var $builtinmodule = function (name) {
 			};
 
 			proto.addHandler = function (handler, add) {
+				Turtle.prototype.$showturtle();
 				var handlers = this._handlers;
 
 				if (!add && handlers && handlers.length) {
@@ -2105,6 +2105,7 @@ var $builtinmodule = function (name) {
 			proto.$onkey.co_varnames = ["method", "keyValue"];
 
 			proto.$onscreenclick = function (method, btn, add) {
+				Turtle.prototype.$showturtle();
 				this.getManager("mousedown").addHandler(method, add);
 			};
 			proto.$onscreenclick.minArgs = 1;
@@ -2174,7 +2175,6 @@ var $builtinmodule = function (name) {
 				height = getHeight(),
 				offset = getTarget().firstChild ? -height + "px" : "0",
 				context;
-
 			canvas.width = width;
 			canvas.height = height;
 			canvas.style.position = "relative";
