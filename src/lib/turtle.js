@@ -730,7 +730,7 @@ var $builtinmodule = function (name) {
 						return;
 					}
 					var world = getScreen();
-					const turtleCanvas = document.getElementById("TURTLE_CANVAS");
+					const turtleCanvas = document.getElementById("turtle-canvas");
 					const turtleScale = Number(
 						turtleCanvas.style.transform.replace("scale(", "").replace(")", "")
 					);
@@ -1890,7 +1890,12 @@ var $builtinmodule = function (name) {
 			proto.$bgcolor = function (color, g, b, a) {
 				if (color !== undefined) {
 					this._bgcolor = createColor(this._colorMode, color, g, b, a);
-					clearLayer(this.bgLayer(), this._bgcolor);
+					const gridCanvas = document.getElementById("gridCanvas");
+					if (gridCanvas) {
+						gridCanvas.style.backgroundColor = this._bgcolor;
+					} else {
+						clearLayer(this.bgLayer(), this._bgcolor);
+					}
 					return;
 				}
 
@@ -2104,6 +2109,12 @@ var $builtinmodule = function (name) {
 			proto.$onkey.minArgs = 2;
 			proto.$onkey.co_varnames = ["method", "keyValue"];
 
+			proto.$onkeypress = function (method, keyValue) {
+				this.$onkey(method, keyValue);
+			};
+			proto.$onkeypress.minArgs = 2;
+			proto.$onkeypress.co_varnames = ["method", "keyValue"];
+
 			proto.$onscreenclick = function (method, btn, add) {
 				Turtle.prototype.$showturtle();
 				this.getManager("mousedown").addHandler(method, add);
@@ -2123,6 +2134,17 @@ var $builtinmodule = function (name) {
 			};
 			proto.$ontimer.minArgs = 0;
 			proto.$ontimer.co_varnames = ["method", "interval"];
+
+			proto.$screensize = function (width, height) {
+				this.$setup(
+					width || _config.width || 400,
+					height || _config.height || 400
+				);
+			};
+			proto.$screensize.minArgs = 0;
+			proto.$screensize.co_varnames = ["width", "height"];
+
+			proto.$setup(_config.width || 400, _config.height || 400);
 		})(Screen.prototype);
 
 		function ensureAnonymous() {
@@ -2921,6 +2943,7 @@ var $builtinmodule = function (name) {
 		addModuleMethod(Screen, _module, "$numinput", getScreen);
 
 		addModuleMethod(Screen, _module, "$onkey", getScreen);
+		addModuleMethod(Screen, _module, "$onkeypress", getScreen);
 		addModuleMethod(Screen, _module, "$listen", getScreen);
 		addModuleMethod(Screen, _module, "$register_shape", getScreen);
 		addModuleMethod(Screen, _module, "$clearscreen", getScreen);
