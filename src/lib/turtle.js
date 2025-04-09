@@ -1722,8 +1722,6 @@ var $builtinmodule = function (name) {
 			};
 
 			proto.$setup = function (width, height, startX, startY) {
-				document.getElementById("turtle-canvas").style.width = width + "px";
-				document.getElementById("turtle-canvas").style.height = height + "px";
 				if (isNaN(parseFloat(width))) {
 					width = getWidth();
 				}
@@ -2199,6 +2197,8 @@ var $builtinmodule = function (name) {
 				height = getHeight(),
 				offset = getTarget().firstChild ? -height + "px" : "0",
 				context;
+			document.getElementById("turtle-canvas").style.width = width + "px";
+			document.getElementById("turtle-canvas").style.height = height + "px";
 			canvas.width = width;
 			canvas.height = height;
 			canvas.style.position = "relative";
