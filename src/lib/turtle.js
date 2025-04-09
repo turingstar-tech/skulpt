@@ -1722,6 +1722,8 @@ var $builtinmodule = function (name) {
 			};
 
 			proto.$setup = function (width, height, startX, startY) {
+				document.getElementById("turtle-canvas").style.width = width + "px";
+				document.getElementById("turtle-canvas").style.height = height + "px";
 				if (isNaN(parseFloat(width))) {
 					width = getWidth();
 				}
@@ -2144,7 +2146,7 @@ var $builtinmodule = function (name) {
 			proto.$screensize.minArgs = 0;
 			proto.$screensize.co_varnames = ["width", "height"];
 
-			proto.$setup(_config.width || 400, _config.height || 400);
+			// proto.$setup(_config.width || 400, _config.height || 400);
 		})(Screen.prototype);
 
 		function ensureAnonymous() {
